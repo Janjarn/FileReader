@@ -10,9 +10,22 @@ import java.util.Scanner;
 import static java.nio.file.StandardOpenOption.APPEND;
 
 public class Main {
-    private static String fileStringPath = "C:\\Users\\Morte\\Desktop\\MyFile.ser";
+    private static String fileStringPath = "C:\\Users\\Morte\\Desktop\\MyFile.myBinary";
     private static Path filePath = Path.of(fileStringPath);
     public static void main(String[] args) {
+        PersonFileManager fileManager = new PersonFileManager(fileStringPath);
+        System.out.println(fileManager.getAllPersons());
+        Person p3 = new Person(3, "Donald");
+        try {
+            fileManager.addPerson(p3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(fileManager.getAllPersons());
+        //fileManager.updatePerson(new Person(2, "Pete"));
+
+        //System.out.println(fileManager.getPerson(1));
+
         /*Person p = new Person(1, "Jeppe");
         Person p2 = new Person(2, "Peter");
         Person p3 = new Person(3, "Jane");
@@ -24,8 +37,8 @@ public class Main {
 
         System.out.println(persons);
 
-        //savePersons(persons);
-*/
+        savePersons(persons);
+
         List<Person> personsFromFile = loadPersons();
         System.out.println(personsFromFile);
         /*printFileContents();
@@ -50,7 +63,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private static void addTextAtLine(String text, int lineNumber){
